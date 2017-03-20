@@ -55,7 +55,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 switch (tabId) {
-                    case R.id.tab_battle:
+                    case R.id.tab_map:
+                        Intent toMapIntent = new Intent(MainActivity.this, Map.class);
+                        startActivity(toMapIntent);
+                        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
                         break;
                     case R.id.tab_settings:
                         Intent toSettingsIntent = new Intent(MainActivity.this, Settings.class);

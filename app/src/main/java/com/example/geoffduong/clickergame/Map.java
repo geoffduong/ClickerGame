@@ -5,37 +5,35 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabSelectListener;
 
 /**
- * Created by geoffduong on 3/19/17.
+ * Created by geoffduong on 3/20/17.
  */
 
-public class Settings extends AppCompatActivity {
+public class Map extends AppCompatActivity {
 
     BottomBar bottomBar;
-    int count = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_settings);
+        setContentView(R.layout.content_map);
 
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);
-        BottomBarTab settingsTab = bottomBar.getTabWithId(R.id.tab_settings);
-        bottomBar.setDefaultTab(settingsTab.getId());
+        BottomBarTab battleTab = bottomBar.getTabWithId(R.id.tab_map);
+        bottomBar.setDefaultTab(battleTab.getId());
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 switch (tabId) {
-                    case R.id.tab_map:
-                        Intent toMapIntent = new Intent(Settings.this, Map.class);
-                        startActivity(toMapIntent);
-                        overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_right);
+                    case R.id.tab_settings:
+                        Intent toSettingsIntent = new Intent(Map.this, Settings.class);
+                        startActivity(toSettingsIntent);
+                        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
                         break;
                     case R.id.tab_kingdom:
                         finish();
@@ -44,6 +42,5 @@ public class Settings extends AppCompatActivity {
                 }
             }
         });
-
     }
 }

@@ -4,9 +4,9 @@
         icon="@drawable/ic_castle_512"
         title="Kingdom" />
     <tab
-        id="@+id/tab_battle"
+        id="@+id/tab_map"
         icon="@drawable/ic_history_swords_crossed_512"
-        title="Battle" />
+        title="Map" />
     <tab
         id="@+id/tab_settings"
         icon="@drawable/ic_tune"
