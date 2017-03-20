@@ -2,6 +2,7 @@ package com.example.geoffduong.clickergame;
 
 import android.media.Image;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,12 +13,16 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
+
 public class MainActivity extends AppCompatActivity {
 
     int count = 0;
     TextView counterText;
     CounterThread counter;
     ImageButton clickBtn;
+    BottomBar bottomBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,21 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 count += 3;
                 counterText.setText(Integer.toString(count));
+            }
+        });
+
+        bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+                switch (tabId) {
+                    case R.id.tab_battle:
+                        break;
+                    case R.id.tab_kingdom:
+                        break;
+                    case R.id.tab_settings:
+                        break;
+                }
             }
         });
     }
