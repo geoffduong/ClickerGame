@@ -1,5 +1,6 @@
 package com.example.geoffduong.clickergame;
 
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -14,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabSelectListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,16 +47,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        BottomBarTab kingdomTab = bottomBar.getTabWithId(R.id.tab_kingdom);
+        bottomBar.setDefaultTab(kingdomTab.getId());
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 switch (tabId) {
                     case R.id.tab_battle:
                         break;
-                    case R.id.tab_kingdom:
-                        break;
                     case R.id.tab_settings:
+                        Intent toSettingsIntent = new Intent(MainActivity.this, Settings.class);
+                        startActivity(toSettingsIntent);
+                        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
                         break;
                 }
             }
@@ -89,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         private String threadName;
         private volatile boolean running;
 
-        CounterThread(String threadName) {
+        public CounterThread(String threadName) {
             this.threadName = threadName;
             running = true;
         }

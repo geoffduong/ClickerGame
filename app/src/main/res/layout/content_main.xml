@@ -14,12 +14,12 @@
     tools:showIn="@layout/activity_main">
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         app:srcCompat="@android:drawable/presence_online"
-        android:layout_centerVertical="true"
+        android:id="@+id/clickBtn"
         android:layout_centerHorizontal="true"
-        android:id="@+id/clickBtn" />
+        android:layout_centerVertical="true" />
 
     <TextView
         android:layout_width="wrap_content"
