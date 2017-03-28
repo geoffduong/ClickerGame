@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     String[] upgradeNames, upgradeDescriptions;
     final int[] upgradeImages = {R.drawable.ic_fitness_center, R.drawable.ic_fitness_center,
             R.drawable.ic_fitness_center, R.drawable.ic_fitness_center};
+    Upgrades upgrades;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        upgrades = new Upgrades();
 
         // Populate upgrade list view-----------------------------------
         res = getResources();
@@ -82,6 +85,22 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 upgradeListData.get(position).increaseUpgradeLevel();
+                                switch (position) {
+                                    // Tower, increases passive click
+                                    case 0:
+                                        upgrades.increasePassiveClick(count);
+                                        break;
+                                    // Barracks, increase number of recruits to work on Farm
+                                    case 5:
+                                        upgrades.increaseNumberOfRecruits(count);
+                                        break;
+                                    // Farm, increase recruit click power
+                                    case 3:
+                                        upgrades.increasePointsPerRecruitClick(count);
+                                        break;
+                                    default:
+                                        break;
+                                }
                                 upgradeListAdapter.notifyDataSetChanged();
                             }
                         })
@@ -112,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         clickBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count += 3;
+                count += upgrades.getPointsPerUserClick();
                 money.replace(7, money.length(), Integer.toString(count));
                 counterText.setText(money.toString());
             }
@@ -139,6 +158,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public int calculateMoney(Upgrades upgrades) {
+        int increment = upgrades.getNumberOfRecruits()*upgrades.getPointsPerRecruitClick()+
+                upgrades.getPassiveClick();
+        return increment;
     }
 
     @Override
@@ -184,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            count++;
+                            count += calculateMoney(upgrades);
                             money.replace(7, money.length(), Integer.toString(count));
                             counterText.setText(money.toString());
                         }
