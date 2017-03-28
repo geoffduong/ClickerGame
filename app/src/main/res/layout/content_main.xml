@@ -13,20 +13,33 @@
     tools:context="com.example.geoffduong.clickergame.MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Money here"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp"
+        android:id="@+id/counterText" />
+
     <ImageButton
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:srcCompat="@android:drawable/presence_online"
         android:id="@+id/clickBtn"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="62dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="42dp"
-        android:id="@+id/counterText" />
+    <ListView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/upgrade_listView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="100dp">
+    </ListView>
+
+
 </RelativeLayout>

@@ -12,11 +12,15 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabSelectListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
     CounterThread counter;
     ImageButton clickBtn;
     BottomBar bottomBar;
+    StringBuilder money;
+    ArrayList<UpgradeData> upgradeData;
+    ListView upgradeListView;
+    UpgradeListAdapter upgradeListAdapter;
+    final int[] upgradeImages = {R.drawable.ic_fitness_center, R.drawable.ic_fitness_center,
+            R.drawable.ic_fitness_center, R.drawable.ic_fitness_center};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +43,22 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Populate upgrade list view-----------------------------------
+        upgradeData = new ArrayList<>();
+        for (int image : upgradeImages) {
+            upgradeData.add(new UpgradeData(image, "Peasant", true));
+        }
+        upgradeListAdapter = new UpgradeListAdapter(this, upgradeData);
+        upgradeListView = (ListView) findViewById(R.id.upgrade_listView);
+        upgradeListView.setAdapter(upgradeListAdapter);
+        //--------------------------------------------------------------
+
         counterText = (TextView) findViewById(R.id.counterText);
-        counterText.setText(Integer.toString(count));
+        money = new StringBuilder();
+        money.append("Money:");
+        money.append(" ");
+        money.append(count);
+        counterText.setText(money.toString());
         counter = new CounterThread("counterThread");
         counter.start();
 
@@ -43,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 count += 3;
-                counterText.setText(Integer.toString(count));
+                money.replace(7, money.length(), Integer.toString(count));
+                counterText.setText(money.toString());
             }
         });
 
@@ -114,7 +139,8 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             count++;
-                            counterText.setText(Integer.toString(count));
+                            money.replace(7, money.length(), Integer.toString(count));
+                            counterText.setText(money.toString());
                         }
                     });
                     Thread.sleep(1000);
