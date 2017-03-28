@@ -13,7 +13,7 @@ public class UpgradeData {
         this.upgradeImage = upgradeImage;
         this.upgradeName = upgradeName;
         this.active = active;
-        upgradeLevel = 1;
+        upgradeLevel = 0;
     }
 
     public int getUpgradeLevel() {

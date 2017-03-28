@@ -1,11 +1,9 @@
 package com.example.geoffduong.clickergame;
 
 import android.content.Intent;
-import android.media.Image;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -20,7 +18,6 @@ import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,9 +27,10 @@ public class MainActivity extends AppCompatActivity {
     ImageButton clickBtn;
     BottomBar bottomBar;
     StringBuilder money;
-    ArrayList<UpgradeData> upgradeData;
+    ArrayList<UpgradeData> upgradeListData;
     ListView upgradeListView;
     UpgradeListAdapter upgradeListAdapter;
+    Resources res;
     final int[] upgradeImages = {R.drawable.ic_fitness_center, R.drawable.ic_fitness_center,
             R.drawable.ic_fitness_center, R.drawable.ic_fitness_center};
 
@@ -44,11 +42,16 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Populate upgrade list view-----------------------------------
-        upgradeData = new ArrayList<>();
-        for (int image : upgradeImages) {
-            upgradeData.add(new UpgradeData(image, "Peasant", true));
+        res = getResources();
+        String[] upgrades = res.getStringArray(R.array.upgrades_stringArray);
+        upgradeListData = new ArrayList<>();
+//        for (int image : upgradeImages) {
+//            upgradeListData.add(new UpgradeData(image, "Peasant", true));
+//        }
+        for (String upgrade : upgrades) {
+            upgradeListData.add(new UpgradeData(upgradeImages[0], upgrade, true));
         }
-        upgradeListAdapter = new UpgradeListAdapter(this, upgradeData);
+        upgradeListAdapter = new UpgradeListAdapter(this, upgradeListData);
         upgradeListView = (ListView) findViewById(R.id.upgrade_listView);
         upgradeListView.setAdapter(upgradeListAdapter);
         //--------------------------------------------------------------

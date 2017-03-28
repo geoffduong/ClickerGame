@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">ClickerGame</string>
     <string name="action_settings">Settings</string>
+    <string-array name="upgrades_stringArray">
+        <item>Tower</item>
+        <item>Armory</item>
+        <item>Blacksmith</item>
+        <item>Farm</item>
+        <item>Stable</item>
+        <item>Barracks</item>
+    </string-array>
 </resources>
