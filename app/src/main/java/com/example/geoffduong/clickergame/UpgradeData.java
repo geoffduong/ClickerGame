@@ -20,8 +20,8 @@ public class UpgradeData {
         return upgradeLevel;
     }
 
-    public void setUpgradeLevel(int upgradeLevel) {
-        this.upgradeLevel = upgradeLevel;
+    public void increaseUpgradeLevel() {
+        this.upgradeLevel++;
     }
 
     public String getUpgradeName() {

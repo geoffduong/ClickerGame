@@ -1,14 +1,17 @@
 package com.example.geoffduong.clickergame;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     ListView upgradeListView;
     UpgradeListAdapter upgradeListAdapter;
     Resources res;
+    String[] upgradeNames, upgradeDescriptions;
     final int[] upgradeImages = {R.drawable.ic_fitness_center, R.drawable.ic_fitness_center,
             R.drawable.ic_fitness_center, R.drawable.ic_fitness_center};
 
@@ -43,17 +47,56 @@ public class MainActivity extends AppCompatActivity {
 
         // Populate upgrade list view-----------------------------------
         res = getResources();
-        String[] upgrades = res.getStringArray(R.array.upgrades_stringArray);
+        upgradeNames = res.getStringArray(R.array.upgradeNames_stringArray);
         upgradeListData = new ArrayList<>();
-//        for (int image : upgradeImages) {
-//            upgradeListData.add(new UpgradeData(image, "Peasant", true));
-//        }
-        for (String upgrade : upgrades) {
+        for (String upgrade : upgradeNames) {
             upgradeListData.add(new UpgradeData(upgradeImages[0], upgrade, true));
         }
         upgradeListAdapter = new UpgradeListAdapter(this, upgradeListData);
         upgradeListView = (ListView) findViewById(R.id.upgrade_listView);
         upgradeListView.setAdapter(upgradeListAdapter);
+
+        upgradeDescriptions = res.getStringArray(R.array.upgradeDescriptions_stringArray);
+        upgradeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                // Create AlertDialog.Builder instance
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+
+                // Build dialog title
+                StringBuilder titleStringBuilder = new StringBuilder();
+                titleStringBuilder.append(upgradeNames[position]);
+                titleStringBuilder.append(" ");
+                titleStringBuilder.append("Upgrade");
+                alertDialogBuilder.setTitle(titleStringBuilder.toString());
+
+                // Confirm, cancel?
+                StringBuilder descriptionStringBuilder = new StringBuilder();
+                descriptionStringBuilder.append(upgradeDescriptions[position]);
+                descriptionStringBuilder.append("\n\n");
+                descriptionStringBuilder.append("Do you want to upgrade?");
+                alertDialogBuilder
+                        .setMessage(descriptionStringBuilder.toString())
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                upgradeListData.get(position).increaseUpgradeLevel();
+                                upgradeListAdapter.notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+
+                // Build alertDialog and show
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        });
         //--------------------------------------------------------------
 
         counterText = (TextView) findViewById(R.id.counterText);
