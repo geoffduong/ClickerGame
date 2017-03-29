@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
@@ -97,30 +98,84 @@ public class MainActivity extends AppCompatActivity {
                                         cost = upgrades.increasePassiveClick(count);
                                         if (cost != 0) {
                                             upgradeListData.get(position).increaseUpgradeLevel();
+                                            count -= cost;
+                                            updateMoney();
+                                            StringBuilder upgradedBuilder = new StringBuilder();
+                                            upgradedBuilder.append("Upgraded Tower to level");
+                                            upgradedBuilder.append(" ");
+                                            upgradedBuilder.append(upgradeListData.get(position).getUpgradeLevel());
+                                            Toast.makeText(getApplicationContext(),
+                                                    upgradedBuilder.toString(),
+                                                    Toast.LENGTH_SHORT).show();
                                         }
-                                        count -= cost;
-                                        money.replace(8, money.length(), Integer.toString(count));
-                                        counterText.setText(money.toString());
+                                        else {
+                                            StringBuilder notEnoughMoneyBuilder = new StringBuilder();
+                                            notEnoughMoneyBuilder.append("Not enough money to upgrade Tower.");
+                                            notEnoughMoneyBuilder.append(" ");
+                                            notEnoughMoneyBuilder.append("This upgrade costs");
+                                            notEnoughMoneyBuilder.append(" ");
+                                            notEnoughMoneyBuilder.append("$");
+                                            notEnoughMoneyBuilder.append(upgrades.getTowerUpgradeCost());
+                                            Toast.makeText(getApplicationContext(),
+                                                    notEnoughMoneyBuilder.toString(),
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
                                         break;
                                     // Barracks, increase number of recruits to work on Farm
                                     case 5:
                                         cost = upgrades.increaseNumberOfRecruits(count);
                                         if (cost != 0) {
                                             upgradeListData.get(position).increaseUpgradeLevel();
+                                            count -= cost;
+                                            updateMoney();
+                                            StringBuilder upgradedBuilder = new StringBuilder();
+                                            upgradedBuilder.append("Upgraded Barracks to level");
+                                            upgradedBuilder.append(" ");
+                                            upgradedBuilder.append(upgradeListData.get(position).getUpgradeLevel());
+                                            Toast.makeText(getApplicationContext(),
+                                                    upgradedBuilder.toString(),
+                                                    Toast.LENGTH_SHORT).show();
                                         }
-                                        count -= cost;
-                                        money.replace(8, money.length(), Integer.toString(count));
-                                        counterText.setText(money.toString());
+                                        else {
+                                            StringBuilder notEnoughMoneyBuilder = new StringBuilder();
+                                            notEnoughMoneyBuilder.append("Not enough money to upgrade Barracks.");
+                                            notEnoughMoneyBuilder.append(" ");
+                                            notEnoughMoneyBuilder.append("This upgrade costs");
+                                            notEnoughMoneyBuilder.append(" ");
+                                            notEnoughMoneyBuilder.append("$");
+                                            notEnoughMoneyBuilder.append(upgrades.getBarracksUpgradeCost());
+                                            Toast.makeText(getApplicationContext(),
+                                                    notEnoughMoneyBuilder.toString(),
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
                                         break;
                                     // Farm, increase recruit click power
                                     case 3:
                                         cost = upgrades.increasePointsPerRecruitClick(count);
                                         if (cost != 0) {
                                             upgradeListData.get(position).increaseUpgradeLevel();
+                                            count -= cost;
+                                            updateMoney();
+                                            StringBuilder upgradedBuilder = new StringBuilder();
+                                            upgradedBuilder.append("Upgraded Farm to level");
+                                            upgradedBuilder.append(" ");
+                                            upgradedBuilder.append(upgradeListData.get(position).getUpgradeLevel());
+                                            Toast.makeText(getApplicationContext(),
+                                                    upgradedBuilder.toString(),
+                                                    Toast.LENGTH_SHORT).show();
                                         }
-                                        count -= cost;
-                                        money.replace(8, money.length(), Integer.toString(count));
-                                        counterText.setText(money.toString());
+                                        else {
+                                            StringBuilder notEnoughMoneyBuilder = new StringBuilder();
+                                            notEnoughMoneyBuilder.append("Not enough money to upgrade Farm.");
+                                            notEnoughMoneyBuilder.append(" ");
+                                            notEnoughMoneyBuilder.append("This upgrade costs");
+                                            notEnoughMoneyBuilder.append(" ");
+                                            notEnoughMoneyBuilder.append("$");
+                                            notEnoughMoneyBuilder.append(upgrades.getFarmUpgradeCost());
+                                            Toast.makeText(getApplicationContext(),
+                                                    notEnoughMoneyBuilder.toString(),
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
                                         break;
                                     default:
                                         break;
@@ -157,8 +212,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 count += upgrades.getPointsPerUserClick();
-                money.replace(8, money.length(), Integer.toString(count));
-                counterText.setText(money.toString());
+                updateMoney();
             }
         });
 
@@ -229,8 +283,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             count += calculateMoney(upgrades);
-                            money.replace(8, money.length(), Integer.toString(count));
-                            counterText.setText(money.toString());
+                            updateMoney();
                         }
                     });
                     Thread.sleep(1000);
@@ -252,5 +305,11 @@ public class MainActivity extends AppCompatActivity {
     public int calculateMoney(Upgrades upgrades) {
         return upgrades.getNumberOfRecruits()*upgrades.getPointsPerRecruitClick()+
                 upgrades.getPassiveClick();
+    }
+
+    // Update money counter
+    private void updateMoney() {
+        money.replace(8, money.length(), Integer.toString(count));
+        counterText.setText(money.toString());
     }
 }

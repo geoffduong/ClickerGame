@@ -72,4 +72,28 @@ public class Upgrades {
     public int getPassiveClick() {
         return passiveClick;
     }
+
+    public int getTowerUpgradeCost() {
+        return towerUpgradeCost;
+    }
+
+    public int getArmoryUpgradeCost() {
+        return armoryUpgradeCost;
+    }
+
+    public int getBlacksmithUpgradeCost() {
+        return blacksmithUpgradeCost;
+    }
+
+    public int getFarmUpgradeCost() {
+        return farmUpgradeCost;
+    }
+
+    public int getStableUpgradeCost() {
+        return stableUpgradeCost;
+    }
+
+    public int getBarracksUpgradeCost() {
+        return barracksUpgradeCost;
+    }
 }
