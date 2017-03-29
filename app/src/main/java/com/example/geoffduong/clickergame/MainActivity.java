@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    int count = 0;
+    private int count = 0, cost = 0;
     TextView counterText;
     CounterThread counter;
     ImageButton clickBtn;
@@ -38,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
     final int[] upgradeImages = {R.drawable.ic_fitness_center, R.drawable.ic_fitness_center,
             R.drawable.ic_fitness_center, R.drawable.ic_fitness_center};
     Upgrades upgrades;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +63,9 @@ public class MainActivity extends AppCompatActivity {
         upgradeListAdapter = new UpgradeListAdapter(this, upgradeListData);
         upgradeListView = (ListView) findViewById(R.id.upgrade_listView);
         upgradeListView.setAdapter(upgradeListAdapter);
+        //--------------------------------------------------------------
 
+        // OnItemClickListener
         upgradeDescriptions = res.getStringArray(R.array.upgradeDescriptions_stringArray);
         upgradeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -84,19 +91,36 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                upgradeListData.get(position).increaseUpgradeLevel();
                                 switch (position) {
                                     // Tower, increases passive click
                                     case 0:
-                                        upgrades.increasePassiveClick(count);
+                                        cost = upgrades.increasePassiveClick(count);
+                                        if (cost != 0) {
+                                            upgradeListData.get(position).increaseUpgradeLevel();
+                                        }
+                                        count -= cost;
+                                        money.replace(8, money.length(), Integer.toString(count));
+                                        counterText.setText(money.toString());
                                         break;
                                     // Barracks, increase number of recruits to work on Farm
                                     case 5:
-                                        upgrades.increaseNumberOfRecruits(count);
+                                        cost = upgrades.increaseNumberOfRecruits(count);
+                                        if (cost != 0) {
+                                            upgradeListData.get(position).increaseUpgradeLevel();
+                                        }
+                                        count -= cost;
+                                        money.replace(8, money.length(), Integer.toString(count));
+                                        counterText.setText(money.toString());
                                         break;
                                     // Farm, increase recruit click power
                                     case 3:
-                                        upgrades.increasePointsPerRecruitClick(count);
+                                        cost = upgrades.increasePointsPerRecruitClick(count);
+                                        if (cost != 0) {
+                                            upgradeListData.get(position).increaseUpgradeLevel();
+                                        }
+                                        count -= cost;
+                                        money.replace(8, money.length(), Integer.toString(count));
+                                        counterText.setText(money.toString());
                                         break;
                                     default:
                                         break;
@@ -122,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
         money = new StringBuilder();
         money.append("Money:");
         money.append(" ");
+        money.append("$");
         money.append(count);
         counterText.setText(money.toString());
         counter = new CounterThread("counterThread");
@@ -132,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 count += upgrades.getPointsPerUserClick();
-                money.replace(7, money.length(), Integer.toString(count));
+                money.replace(8, money.length(), Integer.toString(count));
                 counterText.setText(money.toString());
             }
         });
@@ -158,12 +183,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    public int calculateMoney(Upgrades upgrades) {
-        int increment = upgrades.getNumberOfRecruits()*upgrades.getPointsPerRecruitClick()+
-                upgrades.getPassiveClick();
-        return increment;
     }
 
     @Override
@@ -210,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             count += calculateMoney(upgrades);
-                            money.replace(7, money.length(), Integer.toString(count));
+                            money.replace(8, money.length(), Integer.toString(count));
                             counterText.setText(money.toString());
                         }
                     });
@@ -227,5 +246,11 @@ public class MainActivity extends AppCompatActivity {
                 thread.start();
             }
         }
+    }
+
+    // Calculate how much to increment money based on upgrades
+    public int calculateMoney(Upgrades upgrades) {
+        return upgrades.getNumberOfRecruits()*upgrades.getPointsPerRecruitClick()+
+                upgrades.getPassiveClick();
     }
 }

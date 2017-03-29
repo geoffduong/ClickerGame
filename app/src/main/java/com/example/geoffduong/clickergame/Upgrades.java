@@ -5,34 +5,56 @@ package com.example.geoffduong.clickergame;
  */
 
 public class Upgrades {
-    private int pointsPerUserClick, numberOfRecruits, pointsPerRecruitClick, passiveClick;
+
+    private int pointsPerUserClick, numberOfRecruits, pointsPerRecruitClick, passiveClick,
+                towerUpgradeCost, armoryUpgradeCost, blacksmithUpgradeCost, farmUpgradeCost,
+                stableUpgradeCost, barracksUpgradeCost;
 
     public Upgrades() {
-        pointsPerUserClick = 3;
+
+        // Upgrade values
+        pointsPerUserClick = 100;
         numberOfRecruits = 0;
         pointsPerRecruitClick = 0;
         passiveClick = 1;
+
+        // Costs
+        towerUpgradeCost = 1000;
+        armoryUpgradeCost = 1;
+        blacksmithUpgradeCost = 1;
+        farmUpgradeCost = 1000;
+        stableUpgradeCost = 1;
+        barracksUpgradeCost = 1000;
     }
 
-    public void increasePassiveClick(int money) {
-        // Check if user has enough money to upgrade
-        // Code here
-
-        passiveClick += 1000;
+    // Tower upgrade
+    public int increasePassiveClick(int money) {
+        // Check if user has enough money to upgrade, return cost
+        if (money >= towerUpgradeCost) {
+            passiveClick += 3;
+            return towerUpgradeCost;
+        }
+        return 0;
     }
 
-    public void increaseNumberOfRecruits(int money) {
+    // Barracks upgrade
+    public int increaseNumberOfRecruits(int money) {
         // Check if user has enough money to upgrade
-        // Code here
-
-        numberOfRecruits++;
+        if (money >= barracksUpgradeCost) {
+            numberOfRecruits++;
+            return barracksUpgradeCost;
+        }
+        return 0;
     }
 
-    public void increasePointsPerRecruitClick(int money) {
+    // Farm upgrade
+    public int increasePointsPerRecruitClick(int money) {
         // Check if user has enough money to upgrade
-        // Code here
-
-        pointsPerRecruitClick += 3;
+        if (money >= farmUpgradeCost) {
+            pointsPerRecruitClick += 3;
+            return farmUpgradeCost;
+        }
+        return 0;
     }
 
     public int getPointsPerUserClick() {

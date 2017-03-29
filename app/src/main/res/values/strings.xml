@@ -10,11 +10,11 @@
         <item>Barracks</item>
     </string-array>
     <string-array name="upgradeDescriptions_stringArray">
-        <item>Tower upgrade description here</item>
+        <item>Increase passive click.</item>
         <item>Armory upgrade description here</item>
         <item>Blacksmith upgrade description here</item>
-        <item>Farm upgrade description here</item>
+        <item>Increase money per recruit click.</item>
         <item>Stable upgrade description here</item>
-        <item>Barracks upgrade description here</item>
+        <item>Increase your number of recruits to work on farm.</item>
     </string-array>
 </resources>
