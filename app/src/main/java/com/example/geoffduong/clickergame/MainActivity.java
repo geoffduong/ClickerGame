@@ -100,26 +100,10 @@ public class MainActivity extends AppCompatActivity {
                                             upgradeListData.get(position).increaseUpgradeLevel();
                                             count -= cost;
                                             updateMoney();
-                                            StringBuilder upgradedBuilder = new StringBuilder();
-                                            upgradedBuilder.append("Upgraded Tower to level");
-                                            upgradedBuilder.append(" ");
-                                            upgradedBuilder.append(upgradeListData.get(position).getUpgradeLevel());
-                                            Toast.makeText(getApplicationContext(),
-                                                    upgradedBuilder.toString(),
-                                                    Toast.LENGTH_SHORT).show();
+                                            generateUpgradeToast(true, position, cost);
+                                            break;
                                         }
-                                        else {
-                                            StringBuilder notEnoughMoneyBuilder = new StringBuilder();
-                                            notEnoughMoneyBuilder.append("Not enough money to upgrade Tower.");
-                                            notEnoughMoneyBuilder.append(" ");
-                                            notEnoughMoneyBuilder.append("This upgrade costs");
-                                            notEnoughMoneyBuilder.append(" ");
-                                            notEnoughMoneyBuilder.append("$");
-                                            notEnoughMoneyBuilder.append(upgrades.getTowerUpgradeCost());
-                                            Toast.makeText(getApplicationContext(),
-                                                    notEnoughMoneyBuilder.toString(),
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
+                                        generateUpgradeToast(false, position, upgrades.getTowerUpgradeCost());
                                         break;
                                     // Barracks, increase number of recruits to work on Farm
                                     case 5:
@@ -128,26 +112,10 @@ public class MainActivity extends AppCompatActivity {
                                             upgradeListData.get(position).increaseUpgradeLevel();
                                             count -= cost;
                                             updateMoney();
-                                            StringBuilder upgradedBuilder = new StringBuilder();
-                                            upgradedBuilder.append("Upgraded Barracks to level");
-                                            upgradedBuilder.append(" ");
-                                            upgradedBuilder.append(upgradeListData.get(position).getUpgradeLevel());
-                                            Toast.makeText(getApplicationContext(),
-                                                    upgradedBuilder.toString(),
-                                                    Toast.LENGTH_SHORT).show();
+                                            generateUpgradeToast(true, position, cost);
+                                            break;
                                         }
-                                        else {
-                                            StringBuilder notEnoughMoneyBuilder = new StringBuilder();
-                                            notEnoughMoneyBuilder.append("Not enough money to upgrade Barracks.");
-                                            notEnoughMoneyBuilder.append(" ");
-                                            notEnoughMoneyBuilder.append("This upgrade costs");
-                                            notEnoughMoneyBuilder.append(" ");
-                                            notEnoughMoneyBuilder.append("$");
-                                            notEnoughMoneyBuilder.append(upgrades.getBarracksUpgradeCost());
-                                            Toast.makeText(getApplicationContext(),
-                                                    notEnoughMoneyBuilder.toString(),
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
+                                        generateUpgradeToast(false, position, upgrades.getBarracksUpgradeCost());
                                         break;
                                     // Farm, increase recruit click power
                                     case 3:
@@ -156,26 +124,10 @@ public class MainActivity extends AppCompatActivity {
                                             upgradeListData.get(position).increaseUpgradeLevel();
                                             count -= cost;
                                             updateMoney();
-                                            StringBuilder upgradedBuilder = new StringBuilder();
-                                            upgradedBuilder.append("Upgraded Farm to level");
-                                            upgradedBuilder.append(" ");
-                                            upgradedBuilder.append(upgradeListData.get(position).getUpgradeLevel());
-                                            Toast.makeText(getApplicationContext(),
-                                                    upgradedBuilder.toString(),
-                                                    Toast.LENGTH_SHORT).show();
+                                            generateUpgradeToast(true, position, cost);
+                                            break;
                                         }
-                                        else {
-                                            StringBuilder notEnoughMoneyBuilder = new StringBuilder();
-                                            notEnoughMoneyBuilder.append("Not enough money to upgrade Farm.");
-                                            notEnoughMoneyBuilder.append(" ");
-                                            notEnoughMoneyBuilder.append("This upgrade costs");
-                                            notEnoughMoneyBuilder.append(" ");
-                                            notEnoughMoneyBuilder.append("$");
-                                            notEnoughMoneyBuilder.append(upgrades.getFarmUpgradeCost());
-                                            Toast.makeText(getApplicationContext(),
-                                                    notEnoughMoneyBuilder.toString(),
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
+                                        generateUpgradeToast(false, position, upgrades.getFarmUpgradeCost());
                                         break;
                                     default:
                                         break;
@@ -311,5 +263,38 @@ public class MainActivity extends AppCompatActivity {
     private void updateMoney() {
         money.replace(8, money.length(), Integer.toString(count));
         counterText.setText(money.toString());
+    }
+
+    // Generate Toast message for upgrades
+    public void generateUpgradeToast(boolean upgraded, int position, int cost) {
+        StringBuilder toastBuilder = new StringBuilder();
+        if (upgraded == true) {
+            toastBuilder.append("Upgraded");
+            toastBuilder.append(" ");
+            toastBuilder.append(upgradeNames[position]);
+            toastBuilder.append(" ");
+            toastBuilder.append("to level");
+            toastBuilder.append(" ");
+            toastBuilder.append(upgradeListData.get(position).getUpgradeLevel());
+            toastBuilder.append(".");
+            Toast.makeText(getApplicationContext(),
+                    toastBuilder.toString(),
+                    Toast.LENGTH_SHORT).show();
+        }
+        else {
+            toastBuilder.append("Not enough money to upgrade");
+            toastBuilder.append(" ");
+            toastBuilder.append(upgradeNames[position]);
+            toastBuilder.append(".");
+            toastBuilder.append(" ");
+            toastBuilder.append("This upgrade costs");
+            toastBuilder.append(" ");
+            toastBuilder.append("$");
+            toastBuilder.append(cost);
+            toastBuilder.append(".");
+            Toast.makeText(getApplicationContext(),
+                    toastBuilder.toString(),
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 }
