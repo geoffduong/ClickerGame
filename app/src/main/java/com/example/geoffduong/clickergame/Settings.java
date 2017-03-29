@@ -38,6 +38,9 @@ public class Settings extends AppCompatActivity {
                         overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_right);
                         break;
                     case R.id.tab_kingdom:
+                        Intent toKingdomIntent = new Intent(Settings.this, MainActivity.class);
+                        toKingdomIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(toKingdomIntent);
                         finish();
                         overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_right);
                         break;

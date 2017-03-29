@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        BottomBarTab kingdomTab = bottomBar.getTabWithId(R.id.tab_kingdom);
+        bottomBar.setDefaultTab(kingdomTab.getId());
     }
 
     @Override
