@@ -23,14 +23,26 @@
         android:id="@+id/counterText" />
 
     <ImageButton
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/presence_online"
         android:id="@+id/clickBtn"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="62dp" />
+
+    <com.varunest.sparkbutton.SparkButton
+        android:id="@+id/money_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"
+        app:sparkbutton_activeImage="@drawable/ic_monetization_on"
+        app:sparkbutton_iconSize="40dp"
+        app:sparkbutton_primaryColor="@color/money_primary_color"
+        app:sparkbutton_secondaryColor="@color/money_secondary_color" />
 
     <ListView
         android:layout_width="200dp"

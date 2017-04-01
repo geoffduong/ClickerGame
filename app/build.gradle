@@ -27,5 +27,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     compile 'com.roughike:bottom-bar:2.1.1'
+    compile 'com.github.geoffduong:sparkbutton:1.0.4'
     testCompile 'junit:junit:4.12'
 }

@@ -8,11 +8,13 @@ import android.support.annotation.IdRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +22,8 @@ import android.widget.Toast;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabSelectListener;
+import com.varunest.sparkbutton.SparkButton;
+import com.varunest.sparkbutton.SparkEventListener;
 
 import java.util.ArrayList;
 
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     final int[] upgradeImages = {R.drawable.ic_fitness_center, R.drawable.ic_fitness_center,
             R.drawable.ic_fitness_center, R.drawable.ic_fitness_center};
     Upgrades upgrades;
+    SparkButton moneyButton;
 
     @Override
     protected void onResume() {
@@ -55,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         upgrades = new Upgrades();
+
+        moneyButton = (SparkButton) findViewById(R.id.money_button);
+        
 
         // Populate upgrade list view-----------------------------------
         res = getResources();
