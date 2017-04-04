@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         upgrades = new Upgrades();
 
         moneyButton = (SparkButton) findViewById(R.id.money_button);
-        
+
 
         // Populate upgrade list view-----------------------------------
         res = getResources();
