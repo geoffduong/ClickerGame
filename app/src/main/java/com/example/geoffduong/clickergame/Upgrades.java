@@ -2,13 +2,19 @@ package com.example.geoffduong.clickergame;
 
 /**
  * Created by geoffduong on 3/28/17.
+ * Tower - Increases passive click
+ * Armory -
+ * Blacksmith -
+ * Farm - Increase money per recruit click
+ * Stable - Increase recruit click speed
+ * Barracks - Increase number of recruits to work on Farm
  */
 
 public class Upgrades {
 
-    private int pointsPerUserClick, numberOfRecruits, pointsPerRecruitClick, passiveClick,
+    private long pointsPerUserClick, numberOfRecruits, pointsPerRecruitClick, passiveClick,
                 towerUpgradeCost, armoryUpgradeCost, blacksmithUpgradeCost, farmUpgradeCost,
-                stableUpgradeCost, barracksUpgradeCost;
+                stableUpgradeCost, barracksUpgradeCost, recruitClickSpeed;
 
     public Upgrades() {
 
@@ -17,18 +23,19 @@ public class Upgrades {
         numberOfRecruits = 0;
         pointsPerRecruitClick = 0;
         passiveClick = 1;
+        recruitClickSpeed = 1;
 
         // Costs
         towerUpgradeCost = 1000;
-        armoryUpgradeCost = 1;
-        blacksmithUpgradeCost = 1;
+        armoryUpgradeCost = 1000;
+        blacksmithUpgradeCost = 1000;
         farmUpgradeCost = 1000;
-        stableUpgradeCost = 1;
+        stableUpgradeCost = 1000;
         barracksUpgradeCost = 1000;
     }
 
     // Tower upgrade
-    public int increasePassiveClick(int money) {
+    public long increasePassiveClick(long money) {
         // Check if user has enough money to upgrade, return cost
         if (money >= towerUpgradeCost) {
             passiveClick += 3;
@@ -38,7 +45,7 @@ public class Upgrades {
     }
 
     // Barracks upgrade
-    public int increaseNumberOfRecruits(int money) {
+    public long increaseNumberOfRecruits(long money) {
         // Check if user has enough money to upgrade
         if (money >= barracksUpgradeCost) {
             numberOfRecruits++;
@@ -48,7 +55,7 @@ public class Upgrades {
     }
 
     // Farm upgrade
-    public int increasePointsPerRecruitClick(int money) {
+    public long increasePointsPerRecruitClick(long money) {
         // Check if user has enough money to upgrade
         if (money >= farmUpgradeCost) {
             pointsPerRecruitClick += 3;
@@ -57,43 +64,56 @@ public class Upgrades {
         return 0;
     }
 
-    public int getPointsPerUserClick() {
+    //Stable upgrade
+    public long increaseRecruitClickSpeed(long money) {
+        if (money >= stableUpgradeCost) {
+            recruitClickSpeed += .25;
+            return stableUpgradeCost;
+        }
+        return 0;
+    }
+
+    public long getRecruitClickSpeed() {
+        return recruitClickSpeed;
+    }
+
+    public long getPointsPerUserClick() {
         return pointsPerUserClick;
     }
 
-    public int getNumberOfRecruits() {
+    public long getNumberOfRecruits() {
         return numberOfRecruits;
     }
 
-    public int getPointsPerRecruitClick() {
+    public long getPointsPerRecruitClick() {
         return pointsPerRecruitClick;
     }
 
-    public int getPassiveClick() {
+    public long getPassiveClick() {
         return passiveClick;
     }
 
-    public int getTowerUpgradeCost() {
+    public long getTowerUpgradeCost() {
         return towerUpgradeCost;
     }
 
-    public int getArmoryUpgradeCost() {
+    public long getArmoryUpgradeCost() {
         return armoryUpgradeCost;
     }
 
-    public int getBlacksmithUpgradeCost() {
+    public long getBlacksmithUpgradeCost() {
         return blacksmithUpgradeCost;
     }
 
-    public int getFarmUpgradeCost() {
+    public long getFarmUpgradeCost() {
         return farmUpgradeCost;
     }
 
-    public int getStableUpgradeCost() {
+    public long getStableUpgradeCost() {
         return stableUpgradeCost;
     }
 
-    public int getBarracksUpgradeCost() {
+    public long getBarracksUpgradeCost() {
         return barracksUpgradeCost;
     }
 }

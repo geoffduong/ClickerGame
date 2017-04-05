@@ -27,9 +27,11 @@ import com.varunest.sparkbutton.SparkEventListener;
 
 import java.util.ArrayList;
 
+import static android.content.DialogInterface.BUTTON_POSITIVE;
+
 public class MainActivity extends AppCompatActivity {
 
-    private int count = 0, cost = 0;
+    private long count = 0, cost = 0;
     TextView counterText;
     CounterThread counter;
     ImageButton clickBtn;
@@ -102,46 +104,7 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                switch (position) {
-                                    // Tower, increases passive click
-                                    case 0:
-                                        cost = upgrades.increasePassiveClick(count);
-                                        if (cost != 0) {
-                                            upgradeListData.get(position).increaseUpgradeLevel();
-                                            count -= cost;
-                                            updateMoney();
-                                            generateUpgradeToast(true, position, cost);
-                                            break;
-                                        }
-                                        generateUpgradeToast(false, position, upgrades.getTowerUpgradeCost());
-                                        break;
-                                    // Barracks, increase number of recruits to work on Farm
-                                    case 5:
-                                        cost = upgrades.increaseNumberOfRecruits(count);
-                                        if (cost != 0) {
-                                            upgradeListData.get(position).increaseUpgradeLevel();
-                                            count -= cost;
-                                            updateMoney();
-                                            generateUpgradeToast(true, position, cost);
-                                            break;
-                                        }
-                                        generateUpgradeToast(false, position, upgrades.getBarracksUpgradeCost());
-                                        break;
-                                    // Farm, increase recruit click power
-                                    case 3:
-                                        cost = upgrades.increasePointsPerRecruitClick(count);
-                                        if (cost != 0) {
-                                            upgradeListData.get(position).increaseUpgradeLevel();
-                                            count -= cost;
-                                            updateMoney();
-                                            generateUpgradeToast(true, position, cost);
-                                            break;
-                                        }
-                                        generateUpgradeToast(false, position, upgrades.getFarmUpgradeCost());
-                                        break;
-                                    default:
-                                        break;
-                                }
+                                upgrade(position);
                                 upgradeListAdapter.notifyDataSetChanged();
                             }
                         })
@@ -264,19 +227,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Calculate how much to increment money based on upgrades
-    public int calculateMoney(Upgrades upgrades) {
-        return upgrades.getNumberOfRecruits()*upgrades.getPointsPerRecruitClick()+
+    public long calculateMoney(Upgrades upgrades) {
+        return upgrades.getNumberOfRecruits() * upgrades.getPointsPerRecruitClick() * upgrades.getRecruitClickSpeed() +
                 upgrades.getPassiveClick();
     }
 
     // Update money counter
     private void updateMoney() {
-        money.replace(8, money.length(), Integer.toString(count));
+        money.replace(8, money.length(), Long.toString(count));
         counterText.setText(money.toString());
     }
 
     // Generate Toast message for upgrades
-    public void generateUpgradeToast(boolean upgraded, int position, int cost) {
+    public void generateUpgradeToast(boolean upgraded, int position, long cost) {
         StringBuilder toastBuilder = new StringBuilder();
         if (upgraded == true) {
             toastBuilder.append("Upgraded");
@@ -290,8 +253,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),
                     toastBuilder.toString(),
                     Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             toastBuilder.append("Not enough money to upgrade");
             toastBuilder.append(" ");
             toastBuilder.append(upgradeNames[position]);
@@ -305,6 +267,52 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),
                     toastBuilder.toString(),
                     Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void upgrade(int position) {
+        switch (position) {
+            // Tower, increases passive click
+            case 0:
+                cost = upgrades.increasePassiveClick(count);
+                break;
+            // Farm, increase recruit click power
+            case 3:
+                cost = upgrades.increasePointsPerRecruitClick(count);
+                break;
+            // Stable, increase recruit click speed
+            case 4:
+                cost = upgrades.increaseRecruitClickSpeed(count);
+                break;
+            // Barracks, increase number of recruits to work on Farm
+            case 5:
+                cost = upgrades.increaseNumberOfRecruits(count);
+                break;
+            default:
+                break;
+        }
+        if (cost != 0) {
+            upgradeListData.get(position).increaseUpgradeLevel();
+            count -= cost;
+            updateMoney();
+            generateUpgradeToast(true, position, cost);
+        } else {
+            switch (position) {
+                case 0:
+                    generateUpgradeToast(false, position, upgrades.getTowerUpgradeCost());
+                    break;
+                case 3:
+                    generateUpgradeToast(false, position, upgrades.getFarmUpgradeCost());
+                    break;
+                case 4:
+                    generateUpgradeToast(false, position, upgrades.getStableUpgradeCost());
+                    break;
+                case 5:
+                    generateUpgradeToast(false, position, upgrades.getBarracksUpgradeCost());
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
