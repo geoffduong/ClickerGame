@@ -23,7 +23,7 @@ public class Upgrades {
         numberOfRecruits = 0;
         pointsPerRecruitClick = 0;
         passiveClick = 1;
-        recruitClickSpeed = 1;
+        recruitClickSpeed = 10;
 
         // Costs
         towerUpgradeCost = 1000;
@@ -67,7 +67,7 @@ public class Upgrades {
     //Stable upgrade
     public long increaseRecruitClickSpeed(long money) {
         if (money >= stableUpgradeCost) {
-            recruitClickSpeed += .25;
+            recruitClickSpeed -= 5;
             return stableUpgradeCost;
         }
         return 0;

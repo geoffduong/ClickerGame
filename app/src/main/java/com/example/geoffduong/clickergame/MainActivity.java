@@ -31,7 +31,7 @@ import static android.content.DialogInterface.BUTTON_POSITIVE;
 
 public class MainActivity extends AppCompatActivity {
 
-    private long count = 0, cost = 0;
+    private long count = 0, cost = 0, timer = 0;
     TextView counterText;
     CounterThread counter;
     ImageButton clickBtn;
@@ -208,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             count += calculateMoney(upgrades);
+                            timer++;
                             updateMoney();
                         }
                     });
@@ -228,8 +229,11 @@ public class MainActivity extends AppCompatActivity {
 
     // Calculate how much to increment money based on upgrades
     public long calculateMoney(Upgrades upgrades) {
-        return upgrades.getNumberOfRecruits() * upgrades.getPointsPerRecruitClick() * upgrades.getRecruitClickSpeed() +
-                upgrades.getPassiveClick();
+        if (timer % upgrades.getRecruitClickSpeed() == 0) {
+            return upgrades.getNumberOfRecruits() * upgrades.getPointsPerRecruitClick() +
+                    upgrades.getPassiveClick();
+        }
+        return upgrades.getPassiveClick();
     }
 
     // Update money counter
