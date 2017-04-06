@@ -55,4 +55,8 @@ public class UpgradeData {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    public void resetUpgradeData() {
+        upgradeLevel = 0;
+    }
 }

@@ -73,6 +73,23 @@ public class Upgrades {
         return 0;
     }
 
+    public void resetUpgrades() {
+        // Upgrade values
+        pointsPerUserClick = 100;
+        numberOfRecruits = 0;
+        pointsPerRecruitClick = 0;
+        passiveClick = 1;
+        recruitClickSpeed = 10;
+
+        // Costs
+        towerUpgradeCost = 1000;
+        armoryUpgradeCost = 1000;
+        blacksmithUpgradeCost = 1000;
+        farmUpgradeCost = 1000;
+        stableUpgradeCost = 1000;
+        barracksUpgradeCost = 1000;
+    }
+
     public long getRecruitClickSpeed() {
         return recruitClickSpeed;
     }

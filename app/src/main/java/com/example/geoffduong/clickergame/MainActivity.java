@@ -319,4 +319,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void resetProgress() {
+        upgrades.resetUpgrades();
+        for(UpgradeData upgrade : upgradeListData) {
+            upgrade.resetUpgradeData();
+        }
+        upgradeListAdapter.notifyDataSetChanged();
+        timer = 0;
+        count = 0;
+        cost = 0;
+    }
 }
