@@ -207,8 +207,8 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            count += calculateMoney(upgrades);
                             timer++;
+                            count += calculateMoney(upgrades);
                             updateMoney();
                         }
                     });
