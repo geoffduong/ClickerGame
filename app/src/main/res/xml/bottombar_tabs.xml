@@ -8,6 +8,10 @@
         icon="@drawable/ic_history_swords_crossed_512"
         title="Map" />
     <tab
+        id="@+id/tab_battle"
+        icon="@drawable/ic_history_swords_crossed_512"
+        title="Battle" />
+    <tab
         id="@+id/tab_settings"
         icon="@drawable/ic_tune"
         title="Settings" />

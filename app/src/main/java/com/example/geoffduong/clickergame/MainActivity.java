@@ -159,6 +159,11 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(toSettingsIntent);
                         overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
                         break;
+                    case R.id.tab_battle:
+                        Intent toBattleIntent = new Intent(MainActivity.this, Battle.class);
+                        startActivity(toBattleIntent);
+                        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
+                        break;
                 }
             }
         });
