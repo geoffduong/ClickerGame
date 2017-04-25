@@ -1,10 +1,15 @@
 package com.example.geoffduong.clickergame;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
@@ -17,11 +22,26 @@ import com.roughike.bottombar.OnTabSelectListener;
 public class Map extends AppCompatActivity {
 
     BottomBar bottomBar;
+    ImageView img_map;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_map);
+
+        img_map = (ImageView) findViewById(R.id.img_map);
+        img_map.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    double x = event.getX() + v.getLeft();
+                    double y = event.getY() + v.getTop();
+                    System.out.println("x" + x);
+                    System.out.println("y" + y);
+                }
+                return false;
+            }
+        });
 
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);
         BottomBarTab battleTab = bottomBar.getTabWithId(R.id.tab_map);

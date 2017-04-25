@@ -44,7 +44,7 @@ public class Triangle {
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 
     // Set color with red, green, blue and alpha (opacity) values
-    float color[] = {0.63671875f, 0.76953125f, 0.22265625f, 1.0f};
+    float color[] = {0.63671875f, 0.23f, 0.22265625f, 1.0f};
 
     public Triangle() {
         // initialize vertex byte buffer for shape coordinates
